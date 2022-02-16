@@ -43,8 +43,12 @@ class Project extends Operator
      */
     public function includeFields(array $fields): self
     {
-        foreach ($fields as $fieldName) {
-            $this->field($fieldName)->expression(true);
+        foreach ($fields as $i => $fieldName) {
+            if (!is_string($fieldName)) {
+                $this->field($i)->expression($fieldName);
+            } else {
+                $this->field($fieldName)->expression(true);
+            }
         }
 
         return $this;
